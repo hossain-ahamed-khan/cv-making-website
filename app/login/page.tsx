@@ -5,7 +5,7 @@ import mainLogo from "@/public/images/main-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CommiLogin() {
+export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [email, setEmail] = useState("");
@@ -109,9 +109,9 @@ export default function CommiLogin() {
               />
               <span className="text-sm text-gray-600">Remember Password</span>
             </label>
-            <button className="text-sm text-gray-500 hover:text-orange-500 transition cursor-pointer">
+            <Link href="/login/forget-password" className="text-sm text-gray-500 hover:text-orange-500 transition cursor-pointer">
               Forget Password?
-            </button>
+            </Link>
           </div>
 
           {/* Log In Button */}
@@ -129,7 +129,7 @@ export default function CommiLogin() {
           {/* Sign Up */}
           <p className="text-center text-sm text-gray-500 mb-3">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="font-semibold text-gray-800 underline hover:text-orange-500 transition cursor-pointer">
+            <Link href="/sign-up" className="font-semibold text-gray-800 underline hover:text-orange-500 transition cursor-pointer">
               Sign up
             </Link>
           </p>

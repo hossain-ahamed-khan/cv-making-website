@@ -5,7 +5,7 @@ import mainLogo from "@/public/images/main-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CommiSignUp() {
+export default function SignUpPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [role, setRole] = useState("employee");
@@ -180,9 +180,11 @@ export default function CommiSignUp() {
                     </div>
 
                     {/* Sign Up Button */}
-                    <button className="w-full py-3 rounded-lg bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold text-sm transition shadow-sm cursor-pointer">
-                        Sign Up
-                    </button>
+                    <Link href="/sign-up/verify-email">
+                        <button className="w-full py-3 rounded-lg bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold text-sm transition shadow-sm cursor-pointer">
+                            Sign Up
+                        </button>
+                    </Link>
 
                     {/* Divider */}
                     <div className="flex items-center gap-3 my-5">
@@ -194,7 +196,7 @@ export default function CommiSignUp() {
                     {/* Sign In */}
                     <p className="text-center text-sm text-gray-500 mb-3">
                         Already have an account?{" "}
-                        <Link href="#" className="font-semibold text-blue-600 hover:text-orange-500 transition cursor-pointer">
+                        <Link href="/login" className="font-semibold text-blue-600 hover:text-orange-500 transition cursor-pointer">
                             Sign in
                         </Link>
                     </p>
