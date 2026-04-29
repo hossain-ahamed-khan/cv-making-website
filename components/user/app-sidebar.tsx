@@ -23,7 +23,7 @@ import {
 const navItems = [
     {
         title: "Profile",
-        url: "/user/profile",
+        url: "/user",
         icon: User,
     },
     {
