@@ -33,11 +33,6 @@ const navItems = [
         icon: Users,
     },
     {
-        title: "CV Template",
-        url: "/admin/cv-template",
-        icon: FileText,
-    },
-    {
         title: "Add Job Title",
         url: "/admin/add-job-title",
         icon: Type,
@@ -54,7 +49,7 @@ const navItems = [
     },
     {
         title: "Bulk Mail",
-        url: "/admin/bulk-mail",
+        url: "/admin/send-bulk-mail",
         icon: Mail,
     },
 ] as const;

@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 type Plan = "Free" | "Monthly" | "Yearly";
@@ -96,8 +97,8 @@ export default function PaymentHistoryTable() {
   };
 
   return (
-    <div className="min-h-screen bg-orange-50 flex items-center justify-center p-8">
-      <div className="bg-white rounded-2xl shadow-sm w-full max-w-5xl p-6 relative">
+    <div className="min-h-screen bg-[#fff0ec] flex items-center justify-center p-8">
+      <div className="bg-white rounded-2xl shadow-sm w-full p-6 relative">
 
         {/* Sort Dropdown */}
         <div className="flex justify-end mb-6 relative">
@@ -118,11 +119,10 @@ export default function PaymentHistoryTable() {
                       setSortKey(opt);
                       setDropdownOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors duration-100 ${
-                      sortKey === opt
-                        ? "bg-orange-50 text-orange-500 font-semibold"
-                        : "text-gray-600 hover:bg-gray-50"
-                    }`}
+                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors duration-100 ${sortKey === opt
+                      ? "bg-orange-50 text-orange-500 font-semibold"
+                      : "text-gray-600 hover:bg-gray-50"
+                      }`}
                   >
                     {opt}
                   </button>

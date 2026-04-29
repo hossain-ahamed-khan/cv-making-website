@@ -37,21 +37,21 @@ const statsData = [
 
 export default function AdminHomePage() {
     return (
-        <div className="min-h-screen bg-[#EFE2DF] p-4 md:p-6">
+        <div className="min-h-screen bg-[#fff0ec] p-4 md:p-6">
             {/* Greeting Section */}
-            <div className="mb-4 rounded-2xl bg-[#F3F4F6] p-4 md:p-6">
+            <div className="mb-4 rounded-2xl bg-[#FFFFFF] p-4 md:p-6">
                 <p className="mb-1 text-xs text-gray-600">Hi, 👋 Good Morning</p>
                 <h1 className="text-xl font-bold text-gray-900">Moni Roy</h1>
             </div>
 
             {/* User's Overview Section */}
-            <div className="rounded-2xl bg-[#F8FAFC] p-4 md:p-6">
+            <div className="rounded-2xl bg-[#FFFFFF] p-4 md:p-6">
                 <h2 className="mb-4 text-2xl font-bold text-gray-800">User&apos;s Overview</h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
                     {statsData.map((stat, index) => (
                         <div
                             key={index}
-                            className="rounded-xl bg-[#E5E7EB] p-6"
+                            className="rounded-xl bg-[#EBEBEB] p-6"
                         >
                             <stat.icon className={`mb-5 h-7 w-7 ${stat.iconColor}`} />
                             <div className="mb-1 text-3xl font-bold text-gray-800">{stat.value}</div>

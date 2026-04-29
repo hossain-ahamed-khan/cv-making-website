@@ -15,7 +15,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-                <header className="flex h-20 shrink-0 items-center justify-between border-b bg-[#F3F4F6] px-4 md:px-8">
+                <header className="flex h-20 shrink-0 items-center justify-between border-b bg-[#FFFFFF] px-4 md:px-8">
                     <div className="flex items-center gap-2">
                         <SidebarTrigger className="-ml-1" />
                         <Separator
@@ -25,7 +25,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                         <AdminBreadcrumb />
                     </div>
 
-                    <div className="hidden items-center gap-4 rounded-xl border border-gray-200 bg-[#F1F2F4] px-4 py-1 my-1 sm:flex">
+                    <div className="hidden items-center gap-4 rounded-xl border border-gray-200 bg-[#EBEBEB] px-4 py-1 my-1 sm:flex">
                         <Image
                             src="/images/auth-image-1.png"
                             alt="Moni Roy"
