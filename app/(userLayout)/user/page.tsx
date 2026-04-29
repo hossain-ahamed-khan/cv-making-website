@@ -138,36 +138,10 @@ function Field({ label, value, onChange, placeholder, type = "text" }: { label: 
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+type UpdateCV = <K extends keyof CVData>(field: K, value: CVData[K]) => void;
 
-export default function CVEditor() {
-  const [cv, setCV] = useState<CVData>(initialData);
-  const [activeSection, setActiveSection] = useState<string>("personal");
-  const [expandedExp, setExpandedExp] = useState<string | null>(null);
-  const [expandedEdu, setExpandedEdu] = useState<string | null>(null);
-  const [newCert, setNewCert] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const update = <K extends keyof CVData>(field: K, value: CVData[K]) => setCV((p) => ({ ...p, [field]: value }));
-
-  const updateExp = (id: string, field: keyof Experience, value: string) =>
-    update("experience", cv.experience.map((e) => (e.id === id ? { ...e, [field]: value } : e)));
-
-  const updateEdu = (id: string, field: keyof Education, value: string) =>
-    update("education", cv.education.map((e) => (e.id === id ? { ...e, [field]: value } : e)));
-
-  const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => update("photo", ev.target?.result as string);
-    reader.readAsDataURL(file);
-  };
-
-  const toggle = (s: string) => setActiveSection((p) => (p === s ? "" : s));
-
-  // ── CV Preview ──────────────────────────────────────────────────────────────
-  const Preview = () => (
+function Preview({ cv, fileInputRef }: { cv: CVData; fileInputRef: React.RefObject<HTMLInputElement | null> }) {
+  return (
     <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "36px 32px", background: "#fff", borderRadius: 20, boxShadow: "0 8px 40px rgba(0,0,0,0.08)", minHeight: 800 }}>
       {/* Header */}
       <div style={{ display: "flex", gap: 20, alignItems: "center", marginBottom: 24 }}>
@@ -265,10 +239,20 @@ export default function CVEditor() {
       ))}
     </div>
   );
+}
 
-  // ── Editor Panels ──────────────────────────────────────────────────────────
-
-  const PersonalPanel = () => (
+function PersonalPanel({
+  cv,
+  update,
+  fileInputRef,
+  handlePhoto,
+}: {
+  cv: CVData;
+  update: UpdateCV;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
+  handlePhoto: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
+  return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, padding: "20px 0" }}>
       <div style={{ display: "flex", gap: 16 }}>
         <div style={{ flex: 1 }}><Field label="First Name" value={cv.firstName} onChange={(v) => update("firstName", v)} /></div>
@@ -300,16 +284,20 @@ export default function CVEditor() {
       </div>
     </div>
   );
+}
 
-  const ProfilePanel = () => (
+function ProfilePanel({ cv, update }: { cv: CVData; update: UpdateCV }) {
+  return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, padding: "20px 0" }}>
       <Field label="Positions" value={cv.positions} onChange={(v) => update("positions", v)} placeholder="e.g. Chef de partie | Sous Jr" />
       <Field label="Salary Indication" value={cv.salary} onChange={(v) => update("salary", v)} placeholder="e.g. €3.000/3.400" />
       <Field label="Availability" value={cv.availability} onChange={(v) => update("availability", v)} placeholder="e.g. Mid November" />
     </div>
   );
+}
 
-  const ExperiencePanel = () => (
+function ExperiencePanel({ cv, update, updateExp, expandedExp, setExpandedExp }: { cv: CVData; update: UpdateCV; updateExp: (id: string, field: keyof Experience, value: string) => void; expandedExp: string | null; setExpandedExp: React.Dispatch<React.SetStateAction<string | null>> }) {
+  return (
     <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 10 }}>
       {cv.experience.map((exp) => (
         <div key={exp.id} style={{ border: "1.5px solid #ebebeb", borderRadius: 12, overflow: "hidden" }}>
@@ -347,8 +335,10 @@ export default function CVEditor() {
       >+ Add Experience</button>
     </div>
   );
+}
 
-  const EducationPanel = () => (
+function EducationPanel({ cv, update, updateEdu, expandedEdu, setExpandedEdu }: { cv: CVData; update: UpdateCV; updateEdu: (id: string, field: keyof Education, value: string) => void; expandedEdu: string | null; setExpandedEdu: React.Dispatch<React.SetStateAction<string | null>> }) {
+  return (
     <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 10 }}>
       {cv.education.map((edu) => (
         <div key={edu.id} style={{ border: "1.5px solid #ebebeb", borderRadius: 12, overflow: "hidden" }}>
@@ -386,8 +376,10 @@ export default function CVEditor() {
       >+ Add Education</button>
     </div>
   );
+}
 
-  const CertPanel = () => (
+function CertPanel({ cv, update, newCert, setNewCert }: { cv: CVData; update: UpdateCV; newCert: string; setNewCert: React.Dispatch<React.SetStateAction<string>> }) {
+  return (
     <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {cv.certificates.map((c, i) => (
@@ -412,8 +404,10 @@ export default function CVEditor() {
       </div>
     </div>
   );
+}
 
-  const LangPanel = () => (
+function LangPanel({ cv, update }: { cv: CVData; update: UpdateCV }) {
+  return (
     <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 12 }}>
       {cv.languages.map((l, i) => (
         <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}>
@@ -428,14 +422,43 @@ export default function CVEditor() {
       >+ Add Language</button>
     </div>
   );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
+
+export default function CVEditor() {
+  const [cv, setCV] = useState<CVData>(initialData);
+  const [activeSection, setActiveSection] = useState<string>("personal");
+  const [expandedExp, setExpandedExp] = useState<string | null>(null);
+  const [expandedEdu, setExpandedEdu] = useState<string | null>(null);
+  const [newCert, setNewCert] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const update = <K extends keyof CVData>(field: K, value: CVData[K]) => setCV((p) => ({ ...p, [field]: value }));
+
+  const updateExp = (id: string, field: keyof Experience, value: string) =>
+    update("experience", cv.experience.map((e) => (e.id === id ? { ...e, [field]: value } : e)));
+
+  const updateEdu = (id: string, field: keyof Education, value: string) =>
+    update("education", cv.education.map((e) => (e.id === id ? { ...e, [field]: value } : e)));
+
+  const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => update("photo", ev.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const toggle = (s: string) => setActiveSection((p) => (p === s ? "" : s));
 
   const sections = [
-    { id: "personal", icon: "👤", label: "Personal Details", panel: <PersonalPanel /> },
-    { id: "profile", icon: "📋", label: "Profile & Preferences", panel: <ProfilePanel /> },
-    { id: "experience", icon: "💼", label: "Professional Experience", panel: <ExperiencePanel /> },
-    { id: "education", icon: "🎓", label: "Education", panel: <EducationPanel /> },
-    { id: "certificates", icon: "🏅", label: "Certificates & Courses", panel: <CertPanel /> },
-    { id: "languages", icon: "🌐", label: "Languages", panel: <LangPanel /> },
+    { id: "personal", icon: "👤", label: "Personal Details", panel: <PersonalPanel cv={cv} update={update} fileInputRef={fileInputRef} handlePhoto={handlePhoto} /> },
+    { id: "profile", icon: "📋", label: "Profile & Preferences", panel: <ProfilePanel cv={cv} update={update} /> },
+    { id: "experience", icon: "💼", label: "Professional Experience", panel: <ExperiencePanel cv={cv} update={update} updateExp={updateExp} expandedExp={expandedExp} setExpandedExp={setExpandedExp} /> },
+    { id: "education", icon: "🎓", label: "Education", panel: <EducationPanel cv={cv} update={update} updateEdu={updateEdu} expandedEdu={expandedEdu} setExpandedEdu={setExpandedEdu} /> },
+    { id: "certificates", icon: "🏅", label: "Certificates & Courses", panel: <CertPanel cv={cv} update={update} newCert={newCert} setNewCert={setNewCert} /> },
+    { id: "languages", icon: "🌐", label: "Languages", panel: <LangPanel cv={cv} update={update} /> },
   ];
 
   return (
@@ -478,7 +501,7 @@ export default function CVEditor() {
 
         {/* Right — Preview */}
         <div style={{ position: "sticky", top: 80, alignSelf: "start" }}>
-          <Preview />
+          <Preview cv={cv} fileInputRef={fileInputRef} />
         </div>
       </div>
 
