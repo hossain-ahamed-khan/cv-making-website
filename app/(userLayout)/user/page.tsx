@@ -148,7 +148,7 @@ export default function CVEditor() {
   const [newCert, setNewCert] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const update = (field: keyof CVData, value: any) => setCV((p) => ({ ...p, [field]: value }));
+  const update = <K extends keyof CVData>(field: K, value: CVData[K]) => setCV((p) => ({ ...p, [field]: value }));
 
   const updateExp = (id: string, field: keyof Experience, value: string) =>
     update("experience", cv.experience.map((e) => (e.id === id ? { ...e, [field]: value } : e)));
