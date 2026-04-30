@@ -21,7 +21,7 @@ import {
 const navItems = [
     {
         title: "Profile",
-        url: "/company/profile",
+        url: "/company",
         icon: User,
     },
     {
