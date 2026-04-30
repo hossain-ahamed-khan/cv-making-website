@@ -2,6 +2,7 @@ import { AppSidebar } from "@/components/admin/app-sidebar"
 import { AdminBreadcrumb } from "@/components/admin/admin-breadcrumb"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
+import { Inter } from "next/font/google"
 import { Separator } from "@/components/ui/separator"
 import {
     SidebarInset,
@@ -9,10 +10,14 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar"
 
+const inter = Inter({
+    subsets: ["latin"],
+})
+
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <SidebarProvider>
+        <SidebarProvider className={inter.className}>
             <AppSidebar />
             <SidebarInset>
                 <header className="flex h-20 shrink-0 items-center justify-between border-b bg-[#FFFFFF] px-4 md:px-8">
@@ -25,7 +30,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                         <AdminBreadcrumb />
                     </div>
 
-                    <div className="hidden items-center gap-4 rounded-xl border border-gray-200 bg-[#EBEBEB] px-4 py-1 my-1 sm:flex">
+                    <div className="hidden items-center gap-4 rounded-xl border border-gray-200 px-4 py-2 my-1 sm:flex">
                         <Image
                             src="/images/auth-image-1.png"
                             alt="Moni Roy"
@@ -34,8 +39,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                             className="h-11 w-11 rounded-full object-cover"
                         />
                         <div className="leading-tight">
-                            <p className="text-lg font-semibold text-gray-700">Moni Roy</p>
-                            <p className="text-base text-gray-500">Super Admin</p>
+                            <p className="text-md font-semibold text-gray-700">Moni Roy</p>
+                            <p className="text-sm text-gray-500">Super Admin</p>
                         </div>
                         <button
                             type="button"

@@ -54,7 +54,7 @@ export default function AdminHomePage() {
                             className="rounded-xl bg-[#EBEBEB] p-6"
                         >
                             <stat.icon className={`mb-5 h-7 w-7 ${stat.iconColor}`} />
-                            <div className="mb-1 text-3xl font-bold text-gray-800">{stat.value}</div>
+                            <div className="mb-1 text-2xl font-bold text-gray-800">{stat.value}</div>
                             <div className="text-lg text-gray-700">{stat.label}</div>
                         </div>
                     ))}
