@@ -87,15 +87,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarContent>
 
                 <SidebarFooter className="mt-auto px-4 pb-4">
-                    <button
-                        type="button"
+                    <Link
+                        href="/user/settings"
                         className="mb-3 w-full rounded-md border border-[#8b8d93] px-4 py-2 text-left text-base font-medium text-[#f3f4f6] transition-colors hover:bg-[#2f323b]"
                     >
                         <span className="inline-flex items-center gap-3">
                             <Settings className="h-4 w-4" strokeWidth={2.2} />
                             Settings
                         </span>
-                    </button>
+                    </Link>
 
                     <button
                         type="button"
