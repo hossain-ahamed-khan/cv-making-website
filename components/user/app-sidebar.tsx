@@ -10,6 +10,7 @@ import {
     User,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
     Sidebar,
     SidebarContent,
@@ -19,6 +20,7 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
+import { ProfileCardModal } from "@/components/user/profile-card-modal";
 
 const navItems = [
     {
@@ -33,13 +35,14 @@ const navItems = [
     },
     {
         title: "Job Tracker",
-        url: "/user/job-tracker",
+        url: "#",
         icon: Crosshair,
     },
 ] as const;
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const pathname = usePathname();
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
 
     return (
         <Sidebar
@@ -99,7 +102,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
                     <button
                         type="button"
-                        className="w-full rounded-lg border border-[#50545e] px-3 py-2 text-left transition-colors hover:bg-[#2f323b]"
+                        onClick={() => setIsProfileOpen(true)}
+                        className="w-full rounded-lg border border-[#50545e] px-3 py-2 text-left transition-colors hover:bg-[#2f323b] cursor-pointer"
                     >
                         <span className="flex items-center gap-3">
                             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#f59f84] to-[#8a5fe2] text-xs font-semibold text-white">
@@ -116,6 +120,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </div>
 
             <SidebarRail />
+            <ProfileCardModal
+                isOpen={isProfileOpen}
+                onClose={() => setIsProfileOpen(false)}
+            />
         </Sidebar>
     );
 }

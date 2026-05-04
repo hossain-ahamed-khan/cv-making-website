@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, type KeyboardEvent, type MouseEvent } from "react";
 import { Inter } from "next/font/google";
+import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,6 +62,7 @@ export default function JobSearch() {
     const [activeFilter, setActiveFilter] = useState("All Jobs");
     const [bookmarked, setBookmarked] = useState<Set<number>>(new Set());
     const [searchValue, setSearchValue] = useState("");
+    const router = useRouter();
 
     const filters = ["All Jobs", "Full-time", "Part-time"];
 
@@ -70,6 +72,22 @@ export default function JobSearch() {
             next.has(id) ? next.delete(id) : next.add(id);
             return next;
         });
+    };
+
+    const handleCardClick = () => {
+        router.push("/user/explore-jobs/job-details");
+    };
+
+    const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            handleCardClick();
+        }
+    };
+
+    const handleBookmarkClick = (event: MouseEvent<HTMLButtonElement>, id: number) => {
+        event.stopPropagation();
+        toggleBookmark(id);
     };
 
     return (
@@ -112,7 +130,11 @@ export default function JobSearch() {
                 {jobs.map((job) => (
                     <div
                         key={job.id}
-                        className="bg-white rounded-2xl p-4 shadow-sm flex flex-col gap-3"
+                        className="bg-white rounded-2xl p-4 shadow-sm flex flex-col gap-3 cursor-pointer hover:shadow-md transition-shadow"
+                        role="button"
+                        tabIndex={0}
+                        onClick={handleCardClick}
+                        onKeyDown={handleCardKeyDown}
                     >
                         {/* Header */}
                         <div className="flex items-start justify-between">
@@ -139,7 +161,8 @@ export default function JobSearch() {
                                 </div>
                             </div>
                             <button
-                                onClick={() => toggleBookmark(job.id)}
+                                type="button"
+                                onClick={(event) => handleBookmarkClick(event, job.id)}
                                 className="text-gray-300 hover:text-orange-400 transition-colors mt-0.5 cursor-pointer"
                             >
                                 <svg
@@ -188,7 +211,11 @@ export default function JobSearch() {
                                     {job.salary}
                                 </span>
                             </div>
-                            <button className="bg-[#FF6041] hover:bg-orange-600 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer">
+                            <button
+                                type="button"
+                                onClick={(event) => event.stopPropagation()}
+                                className="bg-[#FF6041] hover:bg-orange-600 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+                            >
                                 Apply Now
                             </button>
                         </div>
