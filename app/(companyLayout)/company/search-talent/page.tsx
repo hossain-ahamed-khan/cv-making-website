@@ -14,6 +14,12 @@ const UserPlus = () => (
     </svg>
 );
 
+const ArrowRight = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h12m0 0l-5-5m5 5l-5 5" />
+    </svg>
+);
+
 const employees = [
     { id: 1, name: "Kathryn Murp", designation: "Chef de parties", address: "London", employer: "Pizzaburg London" },
     { id: 2, name: "Devon Lane", designation: "Chef de parties", address: "New York", employer: "Pizzaburg London" },
@@ -62,21 +68,23 @@ export default function EmployeeTable() {
     };
 
     return (
-        <div className="min-h-screen bg-rose-50 flex justify-center p-6">
+        <div className="min-h-screen bg-[#fff0ec] w-full p-6">
             <div className="bg-white rounded-2xl shadow-sm w-full p-6">
                 {/* Search Bar */}
-                <div className="flex gap-3 mb-6">
-                    <input
-                        type="text"
-                        placeholder="Search by email or name"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-500 outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-300 transition"
-                    />
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2.5">
+                        <input
+                            type="text"
+                            placeholder="Search by email or name"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            className="w-full bg-transparent text-sm text-gray-700 placeholder:text-gray-400 outline-none"
+                        />
+                    </div>
                     <button
                         onClick={handleSearch}
-                        className="bg-red-400 hover:bg-red-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition"
+                        className="bg-[#FF6041] hover:bg-orange-600 text-white text-sm font-semibold px-6 py-2.5 rounded-md transition"
                     >
                         Search
                     </button>
@@ -85,7 +93,7 @@ export default function EmployeeTable() {
                 {/* Table */}
                 <table className="w-full text-sm">
                     <thead>
-                        <tr className="text-left text-gray-800 font-semibold border-b border-gray-100">
+                        <tr className="text-left text-gray-800 font-semibold border-b border-gray-200">
                             <th className="pb-3 pr-4">Full Name</th>
                             <th className="pb-3 pr-4">Designation</th>
                             <th className="pb-3 pr-4">Address</th>
@@ -103,21 +111,21 @@ export default function EmployeeTable() {
                             </tr>
                         ) : (
                             paginated.map((emp) => (
-                                <tr key={emp.id} className="border-b border-gray-50 last:border-0">
+                                <tr key={emp.id} className="border-b border-gray-100 last:border-0">
                                     <td className="py-3.5 pr-4 text-gray-700">{emp.name}</td>
                                     <td className="py-3.5 pr-4 text-gray-500">{emp.designation}</td>
                                     <td className="py-3.5 pr-4 text-gray-500">{emp.address}</td>
                                     <td className="py-3.5 pr-4 text-gray-500">{emp.employer}</td>
                                     <td className="py-3.5 pr-4">
-                                        <button className="flex items-center gap-1.5 bg-green-50 text-green-600 text-xs font-medium px-3 py-1.5 rounded-md hover:bg-green-100 transition">
+                                        <button className="inline-flex items-center gap-2 bg-rose-100 text-gray-700 text-xs font-medium px-3 py-1.5 rounded-md hover:bg-rose-200 transition">
                                             <Eye />
                                             View Details
                                         </button>
                                     </td>
                                     <td className="py-3.5">
-                                        <button className="flex items-center gap-1.5 bg-green-50 text-green-600 text-xs font-medium px-3 py-1.5 rounded-md hover:bg-green-100 transition">
-                                            <UserPlus />
-                                            Invite
+                                        <button className="inline-flex items-center gap-2 bg-green-100 text-gray-800 text-xs font-medium px-3 py-1.5 rounded-md hover:bg-green-200 transition">
+                                            Save to Talent Pool
+                                            <ArrowRight />
                                         </button>
                                     </td>
                                 </tr>
@@ -131,7 +139,7 @@ export default function EmployeeTable() {
                     <button
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                         disabled={page === 1}
-                        className="bg-red-400 hover:bg-red-500 disabled:opacity-40 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+                        className="bg-[#FF6041] hover:bg-orange-600 disabled:opacity-40 text-white text-sm font-medium px-4 py-2 rounded-md transition"
                     >
                         &lt; Prev
                     </button>
@@ -140,9 +148,9 @@ export default function EmployeeTable() {
                         <button
                             key={p}
                             onClick={() => setPage(p)}
-                            className={`w-9 h-9 rounded-lg text-sm font-medium transition ${p === page
-                                ? "bg-red-400 text-white"
-                                : "border border-gray-200 text-gray-600 hover:bg-gray-50"
+                            className={`w-9 h-9 rounded-md text-sm font-medium transition ${p === page
+                                ? "bg-[#FF6041] text-white"
+                                : "border border-orange-300 text-orange-600 hover:bg-orange-50"
                                 }`}
                         >
                             {p}
@@ -152,7 +160,7 @@ export default function EmployeeTable() {
                     <button
                         onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                         disabled={page === totalPages}
-                        className="bg-red-400 hover:bg-red-500 disabled:opacity-40 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+                        className="bg-[#FF6041] hover:bg-orange-600 disabled:opacity-40 text-white text-sm font-medium px-4 py-2 rounded-md transition"
                     >
                         Next &gt;
                     </button>

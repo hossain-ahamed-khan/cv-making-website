@@ -58,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             alt="Commi"
                             width={120}
                             height={40}
-                            className="h-auto w-[120px]"
+                            className="h-auto w-30"
                             priority
                         />
                     </div>

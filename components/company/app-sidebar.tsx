@@ -3,20 +3,25 @@ import Link from "next/link";
 import Image from "next/image";
 import mainLogo2 from "@/public/images/main-logo-2.png";
 import {
+    ChevronDown,
     Gem,
     Search,
+    Settings,
     User,
     Users,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
+import { ProfileCardModal } from "@/components/company/profile-card-modal";
 
 const navItems = [
     {
@@ -43,6 +48,7 @@ const navItems = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const pathname = usePathname();
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
 
     return (
         <Sidebar
@@ -91,7 +97,40 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarContent>
 
+            <SidebarFooter className="mt-auto px-4 pb-4 bg-[#25272d]" style={{ backgroundColor: "#25272d" }}>
+                <Link
+                    href="#"
+                    className="mb-3 w-full rounded-md border border-[#8b8d93] px-4 py-2 text-left text-base font-medium text-[#f3f4f6] transition-colors hover:bg-[#2f323b]"
+                >
+                    <span className="inline-flex items-center gap-3">
+                        <Settings className="h-4 w-4" strokeWidth={2.2} />
+                        Settings
+                    </span>
+                </Link>
+
+                <button
+                    type="button"
+                    onClick={() => setIsProfileOpen(true)}
+                    className="w-full rounded-lg border border-[#50545e] px-3 py-2 text-left transition-colors hover:bg-[#2f323b] cursor-pointer"
+                >
+                    <span className="flex items-center gap-3">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#f59f84] to-[#8a5fe2] text-xs font-semibold text-white">
+                            AC
+                        </span>
+                        <span className="flex flex-1 flex-col">
+                            <span className="text-sm font-semibold leading-tight text-white">Acme Corp</span>
+                            <span className="text-xs leading-tight text-[#c4c7ce]">Company</span>
+                        </span>
+                        <ChevronDown className="h-4 w-4 text-[#d8d9de]" strokeWidth={2.2} />
+                    </span>
+                </button>
+            </SidebarFooter>
+
             <SidebarRail />
+            <ProfileCardModal
+                isOpen={isProfileOpen}
+                onClose={() => setIsProfileOpen(false)}
+            />
         </Sidebar>
     );
 }

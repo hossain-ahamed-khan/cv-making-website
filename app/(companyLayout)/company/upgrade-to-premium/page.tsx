@@ -53,7 +53,7 @@ const plans = [
 
 export default function PricingSection() {
     return (
-        <section className="min-h-screen bg-[#fdf0ee] flex flex-col items-center px-6 py-20">
+        <section className="min-h-screen bg-[#fff0ec] flex flex-col items-center px-6 py-20">
             {/* Header */}
             <div className="text-center mb-14">
                 <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
@@ -65,14 +65,14 @@ export default function PricingSection() {
             </div>
 
             {/* Cards */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-5xl">
+            <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 w-full max-w-5xl">
                 {plans.map((plan) => (
                     <div
                         key={plan.name}
-                        className={`relative flex flex-col rounded-3xl p-8 w-full max-w-sm shadow-md ${plan.dark
+                        className={`relative flex flex-col rounded-3xl p-6 w-full max-w-xs min-h-120 h-full shadow-md ${plan.dark
                             ? "bg-[#2b2b2b] text-white"
                             : "bg-white text-gray-900"
-                            } ${plan.popular ? "scale-105 z-10" : ""}`}
+                            }`}
                     >
                         {/* Most Popular Badge */}
                         {plan.popular && (
@@ -91,16 +91,16 @@ export default function PricingSection() {
                             {plan.name}
                         </h2>
                         <p
-                            className={`text-sm mb-8 ${plan.dark ? "text-gray-400" : "text-gray-500"
+                            className={`text-sm mb-6 ${plan.dark ? "text-gray-400" : "text-gray-500"
                                 }`}
                         >
                             {plan.description}
                         </p>
 
                         {/* Price */}
-                        <div className="flex items-end gap-1 mb-8">
+                        <div className="flex items-end gap-1 mb-6">
                             <span
-                                className={`text-6xl font-extrabold leading-none ${plan.dark ? "text-white" : "text-gray-900"
+                                className={`text-5xl font-extrabold leading-none ${plan.dark ? "text-white" : "text-gray-900"
                                     }`}
                             >
                                 {plan.price}
@@ -116,7 +116,7 @@ export default function PricingSection() {
                         </div>
 
                         {/* Features */}
-                        <ul className="space-y-3 mb-10 flex-1">
+                        <ul className="space-y-3 mb-8 flex-1">
                             {plan.features.map((feature) => (
                                 <li key={feature} className="flex items-center gap-3">
                                     <Check
@@ -136,7 +136,7 @@ export default function PricingSection() {
 
                         {/* CTA Button */}
                         <button
-                            className={`w-full py-4 rounded-2xl font-semibold text-base transition-all duration-200 ${plan.popular
+                            className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all duration-200 ${plan.popular
                                 ? "bg-[#f05a3a] hover:bg-[#e04a2a] text-white"
                                 : "bg-gray-100 hover:bg-gray-200 text-[#f05a3a]"
                                 }`}
