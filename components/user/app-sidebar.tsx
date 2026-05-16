@@ -58,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             alt="Commi"
                             width={120}
                             height={40}
-                            className="h-auto w-30"
+                            className="h-auto w-25"
                             priority
                         />
                     </div>
@@ -100,7 +100,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         </span>
                     </Link>
 
-                    <button
+                    {/* <button
                         type="button"
                         onClick={() => setIsProfileOpen(true)}
                         className="w-full rounded-lg border border-[#50545e] px-3 py-2 text-left transition-colors hover:bg-[#2f323b] cursor-pointer"
@@ -115,7 +115,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             </span>
                             <ChevronDown className="h-4 w-4 text-[#d8d9de]" strokeWidth={2.2} />
                         </span>
-                    </button>
+                    </button> */}
                 </SidebarFooter>
             </div>
 
